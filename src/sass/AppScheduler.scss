@@ -1,0 +1,88 @@
+//Vars
+
+
+
+/* #region  Range */
+#schedule-output {
+
+  min-height: 60px;
+  max-height: 250px;
+  overflow: auto;
+}
+
+.uploaded-file-delete,
+.uploaded-file-add {
+  svg {
+    transition: all 0.3s;
+  }
+
+  &:hover {
+    background-color: var(--bs-light);
+
+    svg {
+      color: var(--bs-danger);
+    }
+  }
+}
+
+.uploaded-file-add {
+  &:hover {
+    background-color: var(--bs-light);
+
+    svg {
+      color: var(--bs-success);
+    }
+  }
+}
+
+/* #endregion */
+
+/* #region  Subjects */
+#file-uploader {
+  height: 16rem;
+  display: grid;
+  place-content: center;
+  outline: 2px dashed var(--bs-primary);
+  outline-offset: -20px;
+  transition: all 0.3s;
+
+  input {
+    cursor: pointer;
+  }
+
+  svg {
+    transition: all 0.3s;
+  }
+
+  &:hover {
+    outline-offset: -25px;
+    transform: scale(1.05);
+  }
+}
+
+.uploaded-files {
+
+  min-height: 72px;
+  height: auto;
+  max-height: 198px;
+}
+
+
+/* #endregion */
+
+
+/* #region  Tables */
+
+select {
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 1px 2px 2px rgba($color: #000000, $alpha: 0.2);
+  }
+}
+
+input[name="period-rad"] {
+  border: 1px solid rgba($color: #000000, $alpha: 0.5);
+}
+
+/* #endregion */

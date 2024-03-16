@@ -1,0 +1,63 @@
+#main-footer {
+ height: 11vh;
+ bottom: -10vh;
+ animation: notify 15s infinite linear;
+ transition: all 0.3s;
+
+ &:hover {
+  animation: none;
+  bottom: 0;
+ }
+
+ .footer-item {
+  img {
+   &.manon {
+    width: 9vh - 3;
+   }
+
+   &.palico {
+    width: 9vh;
+   }
+
+   &:hover {
+    animation: migs 0.2s 2 linear;
+   }
+  }
+ }
+}
+
+//Migs section
+@keyframes migs {
+ 0% {
+  transform: rotate(0deg);
+ }
+
+ 25% {
+  transform: rotate(20deg);
+ }
+
+ 75% {
+  transform: rotate(-20deg);
+ }
+
+ 100% {
+  transform: rotate(0deg);
+ }
+}
+
+@keyframes notify {
+
+ 90%,
+ 92%,
+ 94% {
+  height: 10vh + 1;
+ }
+
+ 91% {
+  height: 10vh + 2;
+ }
+
+ 93% {
+  height: 10vh + 2;
+ }
+}

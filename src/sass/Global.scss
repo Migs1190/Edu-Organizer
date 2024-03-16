@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Noto+Kufi+Arabic:100,200,300,regular,500,600,700,800,900);
+
+:root {
+  &[dir="ltr"] * {
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  }
+
+  &[dir="rtl"] * {
+    font-family: "Noto Kufi Arabic", sans-serif;
+  }
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  * {
+    font-weight: 600;
+  }
+}
+
+// General Classes
+.px-container {
+  padding: 0 50px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.px-nav-container {
+  padding: 0 50px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.shadow-hover {
+  &:hover {
+    box-shadow: 1px 2px 2px rgba($color: #000000, $alpha: 0.2);
+  }
+}
+
+.lined-row {
+  height: 8rem;
+}
+
+.lined {
+  font-size: 45px;
+  font-weight: bold;
+  line-height: 8rem;
+  width: auto;
+  margin: 0 auto;
+  position: relative;
+  transition: all 0.3s;
+
+  &:hover {
+    line-height: 7.7rem;
+  }
+
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 4px;
+    background-color: var(--bs-primary);
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 25px;
+    transition: all 0.3s;
+  }
+
+  &:hover {
+    &::after {
+      width: 150px;
+    }
+  }
+}
+
+.modal-dialog {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: fit-content;
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      flex: 0.5;
+    }
+
+    .modal-title {
+      flex: 6;
+    }
+
+    .btn-close {
+      border: 2px solid;
+    }
+  }
+
+  .modal-content {
+    height: 90vh;
+    overflow: auto;
+    min-width: 60vw;
+    max-width: 80vw;
+  }
+}

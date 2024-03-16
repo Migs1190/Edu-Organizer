@@ -1,0 +1,167 @@
+#main-nav {
+ background-color: #1323b8;
+
+ .logo-link {
+  &:hover {
+   .logo {
+    transform: scale(1.2);
+   }
+  }
+
+  .logo {
+   width: 35px;
+   transition: transform 0.1s;
+  }
+ }
+
+ .lined-nav-link {
+  position: relative;
+  display: inline-block;
+
+  &::after {
+   content: "";
+   width: 0;
+   height: 2px;
+   position: absolute;
+   bottom: 0;
+   left: 3%;
+   background-color: white;
+   transition: width 0.3s;
+  }
+
+  &:hover,
+  &.active {
+   &::after {
+    width: 95%;
+   }
+  }
+ }
+
+ .dropdown-menu {
+  text-align: start;
+ }
+
+ .nav-link {
+
+  //For Dropdowns builtin arrow
+  &:after {
+   border: none;
+  }
+ }
+
+ .lang-icon-frame {
+  width: 45px;
+  height: 45px;
+
+  .lang-icon {
+   font-size: 35px;
+   padding: 5px;
+   color: var(--bs-secondary);
+   position: relative;
+   transition: all 0.5s;
+  }
+
+  .lang-text {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+  }
+ }
+}
+
+//All Large Screens
+@media only screen and (min-width: 992px) {
+ .dropdown-menu {
+  transform: translate(-50%, 0);
+  top: 100%;
+  transition: all 0.5s;
+
+  .dropdown-item {
+   color: var(--bs-dark);
+  }
+
+  &:not(.show) {
+   display: block;
+   opacity: 0;
+   visibility: hidden;
+  }
+
+
+  &.show {
+   opacity: 1;
+   visibility: visible;
+  }
+
+  &::before {
+   content: '';
+   width: 55%;
+   height: 10px;
+   position: absolute;
+   top: -10%;
+   left: 25%;
+  }
+ }
+
+}
+
+//All Small Screens
+@media only screen and (max-width: 768px) {
+
+ .lined-nav-link {
+  &.flnl {
+   display: inline;
+   width: 65px;
+  }
+ }
+
+ .dropdown-menu {
+  background-color: #0f1c93;
+  padding: 10px;
+  display: block !important;
+  border: 0;
+  border-radius: 0;
+  border-top: 2px solid var(--bs-dark);
+
+  .dropdown-item {
+   width: auto;
+   color: var(--bs-light);
+   padding: 5px;
+   display: inline-block;
+   position: relative;
+
+   &:hover,
+   &:focus,
+   &:active {
+    background-color: transparent;
+   }
+
+   &::before {
+    content: '';
+   }
+  }
+
+ }
+
+ :root[dir="rtl"] {
+  .dropdown-item {
+   margin-right: 30px;
+  }
+ }
+
+ :root[dir="ltr"] {
+  .dropdown-item {
+   margin-left: 30px;
+  }
+ }
+
+ // .lang-icon-frame {
+ //  position: absolute;
+ //  top: -550%;
+ //  left: -1370%;
+
+ //  .lang-icon {}
+
+ //  .lang-text {}
+ // }
+}
