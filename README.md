@@ -38,7 +38,7 @@ npm run dev
 
 #### Note 1:
 
-The Excel sheets from Tanta University are a bit unique. They're not exactly the easiest to work with, but this app is designed specifically for them. So, trying to use a regular Excel sheet might not go as planned. 💀
+The Excel sheets from Tanta University are a bit (unique). They're not exactly the easiest to work with, but this app is designed specifically for them. So, trying to use a regular Excel sheet might not go as planned. 💀
 
 #### Note 2:
 

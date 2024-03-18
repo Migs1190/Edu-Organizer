@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
 export default function AppNav() {
-  const { lang, setLang } = useContext(ContextData);
+  const { lang, langOption, setLang } = useContext(ContextData);
   const [showDropDown1, setShowDropDown1] = useState(false);
   const [showDropDown2, setShowDropDown2] = useState(false);
 
@@ -28,8 +28,9 @@ export default function AppNav() {
       localStorage.setItem("lang", "AR");
     }
   }
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
-    document.documentElement.dir = lang === "AR" ? "rtl" : "ltr";
+    document.documentElement.dir = langOption("rtl", "ltr");
   }, [lang]);
 
   return (
@@ -48,7 +49,7 @@ export default function AppNav() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto">
             <Nav.Link className="nav-link lined-nav-link flnl" as={Link} to="/">
-              {lang === "AR" ? "الرئيسية" : "Home"}
+              {langOption("الرئيسية", "Home")}
             </Nav.Link>
             <NavDropdown
               menuVariant="secondary"
@@ -56,30 +57,30 @@ export default function AppNav() {
               show={showDropDown1}
               onMouseEnter={showDrop1}
               onMouseLeave={hideDrop1}
-              title={lang === "AR" ? "الاختبارات" : "Exams"}
+              title={langOption("الاختبارات", "Exams")}
               id="basic-nav-dropdown"
             >
               <NavDropdown.Item className="text-center nav-link lined-nav-link" as={Link} to="scheduler">
-                {lang === "AR" ? "جدول جديد" : "Schedule a table"}
+                {langOption("جدول جديد", "Schedule a table")}
               </NavDropdown.Item>
               <br />
               <NavDropdown.Item className="text-center nav-link lined-nav-link" as={Link} to="reviewer">
-                {lang === "AR" ? "مراجعة الجداول" : "Review Timetables"}
+                {langOption("مراجعة الجداول", "Review Timetables")}
               </NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown
+            {/* <NavDropdown
               menuVariant="secondary"
               renderMenuOnMount
               show={showDropDown2}
               onMouseEnter={showDrop2}
               onMouseLeave={hideDrop2}
-              title={lang === "AR" ? "القاعات" : "Halls"}
+              title={langOption("القاعات", "Halls")}
               id="basic-nav-dropdown"
             >
               <NavDropdown.Item className="text-center nav-link lined-nav-link" as={Link} to="scheduler">
-                {lang === "AR" ? "جدول جديد" : "Schedule a table"}
+                {langOption("جدول جديد", "Schedule a table")}
               </NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
           </Nav>
           <Navbar.Brand className="m-0 p-0" onClick={changeLang} href="#" title="hey">
             <div className="lang-icon-frame nav-link lined-nav-link mt-2">

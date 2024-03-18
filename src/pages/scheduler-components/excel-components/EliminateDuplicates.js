@@ -7,7 +7,9 @@ const eliminateDuplicates = (workbook, setFinalWorkbook) => {
   const subjectsMap = new Map();
 
   for (const subject of workbook) {
+    //Is the subject code already in the map?
     if (subjectsMap.has(subject.subjectCode)) {
+      //
       const existingSubject = subjectsMap.get(subject.subjectCode);
       for (const student of subject.enrolledStudents) {
         if (!existingSubject.enrolledStudents.some((s) => s.id === student.id)) {

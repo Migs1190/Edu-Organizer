@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 import { ContextData } from "../../../App";
 
 export const RangeOutput = ({ rangeIsValid, schedule, filtered, filteredSchedule, manageDay }) => {
-  const { lang } = useContext(ContextData);
+  const { langOption } = useContext(ContextData);
   return (
     <div id="schedule-output" className="bg-light mx-auto border rounded p-2">
       {rangeIsValid &&
@@ -20,9 +20,10 @@ export const RangeOutput = ({ rangeIsValid, schedule, filtered, filteredSchedule
                   } day w-100 border p-2 rounded my-1  d-flex justify-content-between align-items-center`}
                 >
                   <span>
-                    {lang === "AR"
-                      ? `${s.day.ar} - ${s.dayNum.ar} ${s.month.ar} - ${s.year.ar}`
-                      : `${s.day.en} - ${s.dayNum.en} ${s.month.en} - ${s.year.en}`}
+                    {langOption(
+                      `${s.day.ar} - ${s.dayNum.ar} ${s.month.ar} - ${s.year.ar}`,
+                      `${s.day.en} - ${s.dayNum.en} ${s.month.en} - ${s.year.en}`
+                    )}
                   </span>
                   {s.flagged ? (
                     <Button
@@ -54,9 +55,10 @@ export const RangeOutput = ({ rangeIsValid, schedule, filtered, filteredSchedule
                   }  day w-100 border p-2 rounded my-1  d-flex justify-content-between align-items-center`}
                 >
                   <span>
-                    {lang === "AR"
-                      ? `${s.day.ar} - ${s.dayNum.ar} ${s.month.ar} - ${s.year.ar}`
-                      : `${s.day.en} - ${s.dayNum.en} ${s.month.en} - ${s.year.en}`}
+                    {langOption(
+                      `${s.day.ar} - ${s.dayNum.ar} ${s.month.ar} - ${s.year.ar}`,
+                      `${s.day.en} - ${s.dayNum.en} ${s.month.en} - ${s.year.en}`
+                    )}
                   </span>
                   {s.flagged ? (
                     <Button

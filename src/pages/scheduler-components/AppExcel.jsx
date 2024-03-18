@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { read } from "xlsx";
 import { ContextData } from "../../App";
 import studentArrayManager from "./excel-components/studentArrayManager";
-import ExcelUploader from "./ExcelUploader";
+import ExcelUploader from "./excel-components/ExcelUploader";
 import eliminateDuplicates from "./excel-components/EliminateDuplicates";
 import ExcelModalPreviewer from "./excel-components/ExcelModalPreviewer";
 
 export default function AppExcel() {
-  const { lang, finalWorkbook, setFinalWorkbook, msgMaker } = useContext(ContextData);
+  const { langOption, finalWorkbook, setFinalWorkbook, msgMaker } = useContext(ContextData);
   const [workbook, setWorkbook] = useState([]);
   const [multiSheet, setMSheet] = useState([]);
   const [uploaded, setUploaded] = useState([]);
@@ -38,7 +38,7 @@ export default function AppExcel() {
     );
 
     setMSheet(tempA);
-    msgMaker("success", lang === "AR" ? "تم رفع المقررات" : "Subjects uploaded successfully");
+    msgMaker("success", langOption("تم رفع المقررات", "Subjects uploaded successfully"));
   }
 
   const previewWorkbook = () => {
@@ -49,7 +49,7 @@ export default function AppExcel() {
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     setWorkbook([]);
-    for (const sheet of multiSheet) studentArrayManager(setWorkbook, lang, msgMaker)(sheet);
+    for (const sheet of multiSheet) studentArrayManager(setWorkbook, langOption, msgMaker)(sheet);
   }, [multiSheet]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -59,7 +59,7 @@ export default function AppExcel() {
 
   useEffect(() => setTemplate(finalWorkbook), [finalWorkbook]);
 
-  const showYear = (e) => {
+  const filterByYear = (e) => {
     if (e.target.value === 0) setTemplate(finalWorkbook);
     else setTemplate(finalWorkbook.filter((w) => +w.subjectYear === +e.target.value));
   };
@@ -78,7 +78,7 @@ export default function AppExcel() {
         preview={preview}
         template={template}
         previewWorkbook={previewWorkbook}
-        showYear={showYear}
+        showYear={filterByYear}
       />
     </div>
   );

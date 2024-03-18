@@ -5,8 +5,6 @@ import palico from "/palico.png";
 import "../../styles/MainFooter.min.css";
 
 export default function AppFooter() {
-  // const palico = "https://i.ibb.co/kMK9nvh/palico.png";
-
   return (
     <section>
       <Navbar id="main-footer" className="vw-100 position-fixed " bg="dark">
