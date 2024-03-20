@@ -1,7 +1,7 @@
 import React from "react";
 import { Fragment } from "react";
 
-export const TableModalDepFilter = ({ timeTable, langOption, rowCounter }) => (
+export const TableModalDepFilter = ({ timeTable, searchPeriod, section, langOption, rowCounter }) => (
   <>
     {timeTable.map((T, Ti) => {
       if (searchPeriod(T.Period1, section, "dep") || searchPeriod(T.Period2, section, "dep")) {

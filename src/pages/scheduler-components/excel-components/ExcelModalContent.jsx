@@ -2,6 +2,11 @@ import { useContext } from "react";
 import { Table } from "react-bootstrap";
 import { ContextData } from "../../../App";
 
+/*
+Contents:
+ - The excel sheet content that is displayed in the modal
+*/
+
 export const ExcelModalContent = ({ template }) => {
   const { langOption } = useContext(ContextData);
   return (

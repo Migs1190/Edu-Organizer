@@ -1,12 +1,5 @@
 import { utils, writeFile } from "xlsx";
 
-/**
- * The ExportSheet function takes a timetable as input, prompts the user for a file name, and then
- * generates an Excel file with the timetable data.
- * @param timeTable - The `timeTable` parameter is an array of objects representing the timetable. Each
- * object in the array represents a day and contains the following properties:
- * @returns The function does not explicitly return anything.
- */
 interface TimeTable {
   fullDate: { ar: string };
   day: { ar: string };
@@ -42,9 +35,13 @@ const ExportSheet = (timeTable: TimeTable[]): void => {
 
   const tempSheet: CombinedSheet = [];
 
+  //Loop through days of the timetable
   for (const day of timeTable) {
+    //Loop through the subjects of the first period of the day
     for (const subject of day.Period1) {
+      //Loop through the students enrolled in the subject
       for (const student of subject.enrolledStudents) {
+        //Push the data of the student and the subject to the tempSheet array
         tempSheet.push({
           "عدد الطلاب": subject.enrolledStudents.length,
           الفترة: "12 : 10",
@@ -57,9 +54,11 @@ const ExportSheet = (timeTable: TimeTable[]): void => {
         });
       }
     }
-
+    //Loop through the subjects of the second period of the day
     for (const subject of day.Period2) {
+      //Loop through the students enrolled in the subject
       for (const student of subject.enrolledStudents) {
+        //Push the data of the student and the subject to the tempSheet array
         tempSheet.push({
           "عدد الطلاب": subject.enrolledStudents.length,
           الفترة: "3 : 1",
@@ -74,19 +73,23 @@ const ExportSheet = (timeTable: TimeTable[]): void => {
     }
   }
 
-  //eliminate duplicates
+  //Remove duplicate rows from the tempSheet array
   const cleanedSheet: CombinedSheet = [];
   const deleted: string[] = [];
+  //Loop through the subjects of the tempSheet array
   for (const subject of tempSheet) {
+    //Is the subject already in the cleanedSheet array?
     if (!deleted.includes(JSON.stringify(subject))) {
+      //No? Then push it to the cleanedSheet array and add it to the deleted array
       cleanedSheet.push(subject);
       deleted.push(JSON.stringify(subject));
     }
   }
-
+  //Initialize a new Excel file
   const wb = utils.book_new();
-
+  //Convert the cleanedSheet array to an Excel sheet
   const ws = utils.json_to_sheet(cleanedSheet);
+  //Append the sheet to the Excel file
   utils.book_append_sheet(wb, ws, "timetable");
 
   //Create a new Excel file with the timetable data

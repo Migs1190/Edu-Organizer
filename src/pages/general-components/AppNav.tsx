@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import uniLogo from "/uni.png";
-import collegeLogo from "/sci.png";
 import { ContextData } from "../../App";
 import "../../styles/MainNav.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -38,11 +36,11 @@ export default function AppNav() {
       <Container className="px-nav-container" fluid>
         <Navbar.Brand className="m-0 mb-4 mb-md-0">
           <a className="logo-link" href="https://sci.tanta.edu.eg/">
-            <img className="logo ms-2 " alt="Faculty of science" src={collegeLogo} draggable="false" />
+            <img className="logo ms-2 " alt="Faculty of science" src="/sci.png" draggable="false" />
           </a>
           <span className="mx-2 text-light ">|</span>
           <a className="logo-link" href="https://tanta.edu.eg/">
-            <img className="logo" alt="Tanta University" src={uniLogo} draggable="false" />
+            <img className="logo" alt="Tanta University" src="/uni.png" draggable="false" />
           </a>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -68,7 +66,7 @@ export default function AppNav() {
                 {langOption("مراجعة الجداول", "Review Timetables")}
               </NavDropdown.Item>
             </NavDropdown>
-            {/* <NavDropdown
+            <NavDropdown
               menuVariant="secondary"
               renderMenuOnMount
               show={showDropDown2}
@@ -80,7 +78,7 @@ export default function AppNav() {
               <NavDropdown.Item className="text-center nav-link lined-nav-link" as={Link} to="scheduler">
                 {langOption("جدول جديد", "Schedule a table")}
               </NavDropdown.Item>
-            </NavDropdown> */}
+            </NavDropdown>
           </Nav>
           <Navbar.Brand className="m-0 p-0" onClick={changeLang} href="#" title="hey">
             <div className="lang-icon-frame nav-link lined-nav-link mt-2">

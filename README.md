@@ -1,1 +1,3 @@
 # Cleaning Up Before Implementing the Lecture Scheduling Features...
+
+* Switching to Typescript for better code management and stuff

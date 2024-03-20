@@ -2,9 +2,9 @@ import "../styles/AppScheduler.min.css";
 import React, { useContext } from "react";
 import { Tab, Tabs } from "react-bootstrap";
 import { ContextData } from "../App";
-import Excel from "./scheduler-components/AppExcel";
-import Range from "./scheduler-components/AppRange";
-import Table from "./scheduler-components/AppTable";
+import Excel from "./scheduler-components/SchedulerExcel";
+import Range from "./scheduler-components/SchedulerRange";
+import Table from "./scheduler-components/SchedulerTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleArrowLeft, faCircleArrowRight } from "@fortawesome/free-solid-svg-icons";
 

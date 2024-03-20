@@ -12,7 +12,15 @@ export const TableModalContent = ({ timeTable, searchPeriod, section, rowCounter
     return <TableModalNoFilter timeTable={timeTable} langOption={langOption} />;
   }
   if (limiter === "all" && section !== "all") {
-    return <TableModalDepFilter timeTable={timeTable} langOption={langOption} rowCounter={rowCounter} />;
+    return (
+      <TableModalDepFilter
+        timeTable={timeTable}
+        searchPeriod={searchPeriod}
+        section={section}
+        langOption={langOption}
+        rowCounter={rowCounter}
+      />
+    );
   }
   if (limiter !== "all" && section === "all") {
     return (

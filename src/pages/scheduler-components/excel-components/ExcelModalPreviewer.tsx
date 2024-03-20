@@ -1,9 +1,21 @@
 import { Form, Modal } from "react-bootstrap";
 import { ExcelModalContent } from "./ExcelModalContent";
-import { useContext } from "react";
+import React, { useContext, FC } from "react";
 import { ContextData } from "../../../App";
+import type { Workbook } from "../../../App";
+/*
+Contents:
+  - The modal that previews the uploaded excel sheets' content
+*/
 
-const ExcelModalPreviewer = ({ preview, template, previewWorkbook, showYear }) => {
+type ExcelModalPreviewerType = {
+  preview: boolean;
+  template: Workbook[];
+  previewWorkbook: () => void;
+  filterByYear: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+};
+
+const ExcelModalPreviewer: FC<ExcelModalPreviewerType> = ({ preview, template, previewWorkbook, filterByYear }) => {
   const { langOption } = useContext(ContextData);
   return (
     <>
@@ -13,7 +25,7 @@ const ExcelModalPreviewer = ({ preview, template, previewWorkbook, showYear }) =
             <Modal.Title>{langOption("البيانات المرفوعة", "Submitted Data")}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form.Select onChange={showYear} className="mt-2 mb-4 w-auto d-inline" defaultValue="0">
+            <Form.Select onChange={filterByYear} className="mt-2 mb-4 w-auto d-inline" defaultValue="0">
               <option value="0">{langOption("جميع المستويات", "All Years")}</option>
               <option value="1">{langOption("المستوى الأول", "First Year")}</option>
               <option value="2">{langOption("المستوى الثاني", "Second Year")}</option>

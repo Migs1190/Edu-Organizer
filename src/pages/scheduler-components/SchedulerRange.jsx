@@ -6,7 +6,7 @@ import { RangeOutput } from "./range-components/RangeOutput";
 import { RangeRangePicker } from "./range-components/RangeRangePicker";
 import { GetRangeDetails, finalizeSchedule } from "./range-components/RangeManager";
 
-export default function AppRange() {
+export default function SchedulerRange() {
   const { msgMaker, langOption, setFinalSchedule } = useContext(ContextData);
   const [range, setRange] = useState([]);
   const [rangeIsValid, setRangeValidity] = useState(false);

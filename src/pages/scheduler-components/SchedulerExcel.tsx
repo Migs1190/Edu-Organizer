@@ -1,3 +1,4 @@
+// biome-ignore lint/style/useImportType: <explanation>
 import React, { useContext, useEffect, useState } from "react";
 import { read } from "xlsx";
 import { ContextData } from "../../App";
@@ -5,16 +6,27 @@ import studentArrayManager from "./excel-components/studentArrayManager";
 import ExcelUploader from "./excel-components/ExcelUploader";
 import eliminateDuplicates from "./excel-components/EliminateDuplicates";
 import ExcelModalPreviewer from "./excel-components/ExcelModalPreviewer";
+import type { Workbook } from "../../App";
 
-export default function AppExcel() {
+export type Sheet = {
+  [key: string]: unknown;
+};
+
+export type SheetCollection = {
+  infoSheet: Sheet;
+  studentsSheet1: Sheet;
+  studentsSheet2: Sheet;
+};
+
+export default function SchedulerExcel() {
   const { langOption, finalWorkbook, setFinalWorkbook, msgMaker } = useContext(ContextData);
-  const [workbook, setWorkbook] = useState([]);
-  const [multiSheet, setMSheet] = useState([]);
-  const [uploaded, setUploaded] = useState([]);
+  const [workbook, setWorkbook] = useState<Workbook[]>([]);
+  const [multiSheet, setMSheet] = useState<SheetCollection[]>([]);
+  const [uploaded, setUploaded] = useState<File[]>([]);
   const [preview, setPreview] = useState(false);
-  const [template, setTemplate] = useState([]);
+  const [template, setTemplate] = useState<Workbook[]>([]);
 
-  const deleteUploadedFile = (index) => setUploaded((uploaded) => uploaded.filter((_n, i) => i !== index));
+  const deleteUploadedFile = (index: number) => setUploaded((uploaded) => uploaded.filter((_n, i) => i !== index));
 
   const deleteAllUploaded = () => setUploaded([]);
 
@@ -25,7 +37,7 @@ export default function AppExcel() {
       setWorkbook([]);
     }
     setMSheet([]);
-    const tempA = await Promise.all(
+    const tempA: SheetCollection[] = await Promise.all(
       uploaded.map(async (file) => {
         const ab = await file.arrayBuffer();
         const wb = read(ab);
@@ -59,9 +71,10 @@ export default function AppExcel() {
 
   useEffect(() => setTemplate(finalWorkbook), [finalWorkbook]);
 
-  const filterByYear = (e) => {
-    if (e.target.value === 0) setTemplate(finalWorkbook);
-    else setTemplate(finalWorkbook.filter((w) => +w.subjectYear === +e.target.value));
+  const filterByYear = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const year: string = e.target.value;
+    if (year === "0") setTemplate(finalWorkbook);
+    else setTemplate(finalWorkbook.filter((w) => (w.subjectYear ?? 0) === year));
   };
 
   return (
@@ -78,7 +91,7 @@ export default function AppExcel() {
         preview={preview}
         template={template}
         previewWorkbook={previewWorkbook}
-        showYear={filterByYear}
+        filterByYear={filterByYear}
       />
     </div>
   );

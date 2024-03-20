@@ -7,7 +7,7 @@ import { TablePeriodRadios } from "./table-components/TablePeriodRadios";
 import { tableBuilder } from "./table-components/tableBuilder";
 import { eliminateConflicts, getAllOptions, searchPeriod, rowCounter } from "./table-components/TableManager";
 
-export default function AppTable() {
+export default function SchedulerTable() {
   const { langOption, finalWorkbook, setFinalWorkbook, finalSchedule } = useContext(ContextData);
   const [timeTable, setTimeTable] = useState([]);
   const [preview, setPreview] = useState(false);
