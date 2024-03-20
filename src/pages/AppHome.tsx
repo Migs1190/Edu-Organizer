@@ -5,39 +5,47 @@ import { ContextData } from "../App";
 
 export default function AppHome() {
   const { langOption } = useContext(ContextData);
-  const header = useRef();
-  const header1 = useRef();
-  const line = useRef();
-  const header2 = useRef();
+  const header = useRef<HTMLHeadingElement>(null);
+  const header1 = useRef<HTMLHeadingElement>(null);
+  const line = useRef<HTMLSpanElement>(null);
+  const header2 = useRef<HTMLHeadingElement>(null);
 
   // Animation properties
   const animationProps = {
     duration: 1000,
     iterations: 1,
-    fill: "forwards",
+    fill: "forwards" as FillMode,
   };
 
   const animateHeaders = () => {
-    header.current.animate([{ transform: "translate(0, -30%)" }, { opacity: 1, transform: "translate(0, 0)" }], {
-      ...animationProps,
-      duration: 500,
-    });
+    if (header.current) {
+      header.current.animate([{ transform: "translate(0, -30%)" }, { opacity: 1, transform: "translate(0, 0)" }], {
+        ...animationProps,
+        duration: 500,
+      });
+    }
 
-    header1.current.animate([{ transform: "translate(0, -30%)" }, { opacity: 1, transform: "translate(0, 0)" }], {
-      ...animationProps,
-      delay: 500,
-    });
+    if (header1.current) {
+      header1.current.animate([{ transform: "translate(0, -30%)" }, { opacity: 1, transform: "translate(0, 0)" }], {
+        ...animationProps,
+        delay: 500,
+      });
+    }
 
-    line.current.animate([{}, { opacity: 1, width: "10rem" }], {
-      ...animationProps,
-      duration: 500,
-      delay: 1500,
-    });
+    if (line.current) {
+      line.current.animate([{}, { opacity: 1, width: "10rem" }], {
+        ...animationProps,
+        duration: 500,
+        delay: 1500,
+      });
+    }
 
-    header2.current.animate([{ transform: "translate(0, 30%)" }, { opacity: 1, transform: "translate(0, 0)" }], {
-      ...animationProps,
-      delay: 2000,
-    });
+    if (header2.current) {
+      header2.current.animate([{ transform: "translate(0, 30%)" }, { opacity: 1, transform: "translate(0, 0)" }], {
+        ...animationProps,
+        delay: 2000,
+      });
+    }
   };
 
   // Animate headers on component mount

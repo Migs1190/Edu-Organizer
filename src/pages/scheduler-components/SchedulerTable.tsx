@@ -1,15 +1,22 @@
+// biome-ignore lint/style/useImportType: <explanation>
 import React, { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { ContextData } from "../../App";
 import { TableCounter } from "./table-components/TableCounter";
 import TableModal from "./table-components/table-modal-components/TableModal";
 import { TablePeriodRadios } from "./table-components/TablePeriodRadios";
-import { tableBuilder } from "./table-components/tableBuilder";
-import { eliminateConflicts, getAllOptions, searchPeriod, rowCounter } from "./table-components/TableManager";
+import tableBuilder from "./table-components/tableBuilder";
+import { eliminateConflicts } from "./table-components/TableManager";
+import type { Workbook, Schedule } from "../../App";
+
+export type TimeTable = Schedule & {
+  Period1: Workbook[];
+  Period2: Workbook[];
+};
 
 export default function SchedulerTable() {
   const { langOption, finalWorkbook, setFinalWorkbook, finalSchedule } = useContext(ContextData);
-  const [timeTable, setTimeTable] = useState([]);
+  const [timeTable, setTimeTable] = useState<TimeTable[]>([]);
   const [preview, setPreview] = useState(false);
   const [limiter, setLimiter] = useState("all");
   const [section, setSection] = useState("all");
@@ -21,9 +28,8 @@ export default function SchedulerTable() {
     setPreview(!preview);
   };
 
-  const filterBySection = (e) => setSection(e.target.value);
-
-  const filterByYear = (e) => setLimiter(e.target.value);
+  const filterBySection = (e: React.MouseEvent) => setSection((e.target as HTMLSelectElement).value);
+  const filterByYear = (e: React.MouseEvent) => setLimiter((e.target as HTMLSelectElement).value);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
@@ -37,12 +43,9 @@ export default function SchedulerTable() {
         preview={preview}
         previewWorkbook={previewWorkbook}
         filterByYear={filterByYear}
-        getAllOptions={getAllOptions}
         filterBySection={filterBySection}
         timeTable={timeTable}
-        searchPeriod={searchPeriod}
         section={section}
-        rowCounter={rowCounter}
         limiter={limiter}
       />
       <div className="content">

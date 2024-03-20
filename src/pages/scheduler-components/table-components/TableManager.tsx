@@ -1,8 +1,13 @@
-import React from "react";
+// biome-ignore lint/style/useImportType: <explanation>
+import React, { ReactNode } from "react";
+import type { LangOption, MessageMaker, Schedule, Workbook } from "../../../App";
+import type { TimeTable } from "../SchedulerTable";
 
-export const rowCounter = (p1, p2, res, type) => {
+type RowCounterType = (p1: Workbook[], p2: Workbook[], res: string | string[], type: string) => number;
+
+export const rowCounter: RowCounterType = (p1, p2, res, type) => {
   let count = 1;
-  const deleted = [];
+  const deleted = [] as string[];
   const period = [...p1, ...p2];
 
   for (const subject of period) {
@@ -24,7 +29,14 @@ export const rowCounter = (p1, p2, res, type) => {
   return count;
 };
 
-export const checkCounter = (finalWorkbook, finalSchedule, msgMaker, langOption) => {
+type CheckCounterType = (
+  finalWorkbook: Workbook[],
+  finalSchedule: Schedule[],
+  msgMaker: MessageMaker,
+  langOption: LangOption
+) => boolean;
+
+export const checkCounter: CheckCounterType = (finalWorkbook, finalSchedule, msgMaker, langOption) => {
   if (finalWorkbook.length === 0 || finalSchedule.length === 0) {
     msgMaker(
       "warning",
@@ -36,7 +48,10 @@ export const checkCounter = (finalWorkbook, finalSchedule, msgMaker, langOption)
   }
   return true;
 };
-export const searchPeriod = (period, res, type) => {
+
+type SearchPeriodType = (period: Workbook[], res: string | string[], type: string) => boolean;
+
+export const searchPeriod: SearchPeriodType = (period, res, type) => {
   switch (type) {
     case "dep":
       return period.some((p) => p.enrolledStudents.some((pe) => pe.dep === res));
@@ -45,12 +60,17 @@ export const searchPeriod = (period, res, type) => {
     case "dep-year":
       //res is an array in this scenario
       return period.some((p) => p.enrolledStudents.some((pe) => pe.dep === res[0] && pe.year === res[1]));
+    default:
+      return false;
   }
 };
-export const getAllOptions = (finalWorkbook, type) => {
-  const options = [];
 
-  finalWorkbook.map((subject) => {
+type GetAllOptionsType = (finalWorkbook: Workbook[], type: string) => ReactNode;
+
+export const getAllOptions: GetAllOptionsType = (finalWorkbook, type) => {
+  const options = [] as string[];
+
+  finalWorkbook.map((subject: Workbook) => {
     subject.enrolledStudents.map((student) => {
       if (type === "year" && !options.includes(student.year)) options.push(student.year);
       else if (type === "dep" && !options.includes(student.dep)) options.push(student.dep);
@@ -68,7 +88,13 @@ export const getAllOptions = (finalWorkbook, type) => {
     </>
   );
 };
-export const eliminateConflicts = (finalWorkbook, setFinalWorkbook) => {
+
+type EliminateConflicts = (
+  finalWorkbook: Workbook[],
+  setFinalWorkbook: React.Dispatch<React.SetStateAction<Workbook[]>>
+) => void;
+
+export const eliminateConflicts: EliminateConflicts = (finalWorkbook, setFinalWorkbook) => {
   for (const A of finalWorkbook) {
     for (const B of finalWorkbook) {
       if (A.subjectCode === B.subjectCode) continue;
@@ -84,10 +110,18 @@ export const eliminateConflicts = (finalWorkbook, setFinalWorkbook) => {
 
   setFinalWorkbook(finalWorkbook);
 };
-const saveTable = (table) => {
+
+export type SavedTimeTable = {
+  content: TimeTable[];
+  dateAr: string[];
+  dateEn: string[];
+};
+
+type SaveTableType = (table: TimeTable[]) => void;
+const saveTable: SaveTableType = (table) => {
   if (!localStorage.getItem("savedTables")) localStorage.setItem("savedTables", JSON.stringify([]));
 
-  const tempTables = JSON.parse(localStorage.getItem("savedTables"));
+  const tempTables: SavedTimeTable[] = JSON.parse(localStorage.getItem("savedTables") as string);
   tempTables.reverse();
   if (tempTables.length >= 15) tempTables.splice(0, 1);
   tempTables.push({
@@ -99,9 +133,16 @@ const saveTable = (table) => {
   localStorage.setItem("savedTables", JSON.stringify(tempTables));
 };
 
-export const periodAssigner = (finalWorkbook, finalSchedule, setTimeTable, period) => {
-  let tempTable = [];
-  const deleted = [];
+type PeriodAssignerType = (
+  finalWorkbook: Workbook[],
+  finalSchedule: Schedule[],
+  setTimeTable: React.Dispatch<React.SetStateAction<TimeTable[]>>,
+  period: string
+) => void;
+
+export const periodAssigner: PeriodAssignerType = (finalWorkbook, finalSchedule, setTimeTable, period) => {
+  let tempTable = [] as TimeTable[];
+  const deleted = [] as string[];
   for (const S of finalSchedule) {
     tempTable.push({ ...S, Period1: [], Period2: [] });
     for (const W of finalWorkbook) {

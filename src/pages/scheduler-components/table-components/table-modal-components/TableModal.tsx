@@ -1,26 +1,36 @@
 import { faTable } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext } from "react";
+// biome-ignore lint/style/useImportType: <explanation>
+import React, { FC, useContext } from "react";
 import { Button, Form, Modal, Table } from "react-bootstrap";
 import ExportSheet from "../../../general-components/ExportSheet";
-import { TableModalContent } from "./TableModalContent";
+import TableModalContent from "./TableModalContent";
 import { ContextData } from "../../../../App";
+import { getAllOptions } from "../TableManager";
+import type { TimeTable } from "../../SchedulerTable";
 
-const TableModal = ({
+type TableModalType = {
+  preview: boolean;
+  previewWorkbook: () => void;
+  filterByYear: (e: React.MouseEvent) => void;
+  filterBySection: (e: React.MouseEvent) => void;
+  timeTable: TimeTable[];
+  section: string;
+  limiter: string;
+};
+
+const TableModal: FC<TableModalType> = ({
   preview,
   previewWorkbook,
   filterByYear,
   filterBySection,
   timeTable,
-  getAllOptions,
-  searchPeriod,
   section,
-  rowCounter,
   limiter,
 }) => {
   const { lang, langOption, finalWorkbook } = useContext(ContextData);
   return (
-    <Modal id={lang.toLowerCase()} show={preview} onHide={previewWorkbook} keyboard={false}>
+    <Modal id={lang?.toLowerCase()} show={preview} onHide={previewWorkbook} keyboard={false}>
       <Modal.Header closeButton>
         <Modal.Title>{langOption("الجدول النهائي", "Final Timetable")}</Modal.Title>
       </Modal.Header>
@@ -56,13 +66,7 @@ const TableModal = ({
             </tr>
           </thead>
           <tbody>
-            <TableModalContent
-              timeTable={timeTable}
-              searchPeriod={searchPeriod}
-              section={section}
-              rowCounter={rowCounter}
-              limiter={limiter}
-            />
+            <TableModalContent timeTable={timeTable} section={section} limiter={limiter} />
           </tbody>
         </Table>
       </Modal.Body>

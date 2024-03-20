@@ -1,5 +1,6 @@
 import { Form, Modal } from "react-bootstrap";
 import { ExcelModalContent } from "./ExcelModalContent";
+// biome-ignore lint/style/useImportType: <explanation>
 import React, { useContext, FC } from "react";
 import { ContextData } from "../../../App";
 import type { Workbook } from "../../../App";

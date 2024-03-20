@@ -23,7 +23,6 @@ export const ContextData = createContext<ContextDataType>({
 });
 
 type ContextDataType = {
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   finalWorkbook: Workbook[];
   setFinalWorkbook: React.Dispatch<React.SetStateAction<Workbook[]>>;
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -43,13 +42,13 @@ export type MessageMaker = (type: MsgType, content: string, key?: string, durati
 export type LangOption = (opt1: any, opt2: any) => typeof opt1 | typeof opt2;
 
 export type Workbook = {
-  subjectName?: string;
-  subjectCode?: string;
-  subjectYear?: string;
-  subjectTerm?: string;
-  conflictedSubjects?: string[];
-  studentsCount?: number;
-  enrolledStudents?: {
+  subjectName: string;
+  subjectCode: string;
+  subjectYear: string;
+  subjectTerm: string;
+  conflictedSubjects: string[];
+  studentsCount: number;
+  enrolledStudents: {
     name: string;
     id: string;
     year: string;
@@ -57,27 +56,27 @@ export type Workbook = {
   }[];
 };
 export type Schedule = {
-  day?: {
+  day: {
     ar: string;
     en: string;
   };
-  dayNum?: {
+  dayNum: {
     ar: string;
     en: string;
   };
-  month?: {
+  month: {
     ar: string;
     en: string;
   };
-  year?: {
+  year: {
     ar: string;
     en: string;
   };
-  fullDate?: {
+  fullDate: {
     ar: string;
     en: string;
   };
-  flagged?: boolean;
+  flagged: boolean;
 };
 
 const App = () => {

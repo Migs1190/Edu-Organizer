@@ -1,11 +1,19 @@
-import React, { useContext, useState } from "react";
+// biome-ignore lint/style/useImportType: <explanation>
+import React, { FC, useContext, useState } from "react";
 import { Badge, Button, Card } from "react-bootstrap";
 import { ContextData } from "../../App";
+import type { SavedTimeTable } from "../scheduler-components/table-components/TableManager";
+import type { TimeTable } from "../scheduler-components/SchedulerTable";
 
-/* The `TableCards` component is a functional component in React that displays a list of saved
-timetables. Here's a breakdown of what the code is doing: */
-const TableCards = ({ previewModal, setTemplate }) => {
-  const [timetables, setTimetables] = useState(JSON.parse(localStorage.getItem("savedTables")));
+type TableCardsType = {
+  previewModal: () => void;
+  setTemplate: React.Dispatch<React.SetStateAction<TimeTable[]>>;
+};
+
+const TableCards: FC<TableCardsType> = ({ previewModal, setTemplate }) => {
+  const [timetables, setTimetables] = useState<SavedTimeTable[]>(
+    JSON.parse(localStorage.getItem("savedTables") as string)
+  );
   const { langOption } = useContext(ContextData);
   return (
     <>
@@ -47,11 +55,13 @@ const TableCards = ({ previewModal, setTemplate }) => {
   );
 };
 
-const deleteCard = (setTimetables, index) => {
-  const temp = JSON.parse(localStorage.getItem("savedTables"));
+type DeleteCardType = (setTimetables: React.Dispatch<React.SetStateAction<SavedTimeTable[]>>, index: number) => void;
+
+const deleteCard: DeleteCardType = (setTimetables, index) => {
+  const temp = JSON.parse(localStorage.getItem("savedTables") as string);
   temp.splice(index, 1);
   localStorage.setItem("savedTables", JSON.stringify(temp));
-  setTimetables(JSON.parse(localStorage.getItem("savedTables")));
+  setTimetables(JSON.parse(localStorage.getItem("savedTables") as string));
 };
 
 export default TableCards;

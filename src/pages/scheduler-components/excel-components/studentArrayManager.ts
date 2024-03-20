@@ -92,7 +92,7 @@ function studentArrayManager(setWorkbook, langOption: LangOption, msgMaker: Mess
       //Variables
       let subjectStudentsCount = 0;
       let enrolledStudents: Students = [];
-      let tempOb: Workbook = {} as Workbook;
+      let tempOb = {} as Workbook;
       //Constants
       const tempAr: Workbook[] = [];
       //Get the first and last row and column
@@ -127,7 +127,7 @@ function studentArrayManager(setWorkbook, langOption: LangOption, msgMaker: Mess
               tempOb.studentsCount = subjectStudentsCount;
               tempOb = { ...tempOb, enrolledStudents };
               tempAr.push(tempOb);
-              tempOb = {};
+              tempOb = {} as Workbook;
               enrolledStudents = [];
               subjectStudentsCount = 0;
               break;

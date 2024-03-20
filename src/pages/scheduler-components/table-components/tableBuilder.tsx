@@ -1,8 +1,15 @@
-import { useContext } from "react";
+// biome-ignore lint/style/useImportType: <explanation>
+import React, { useContext } from "react";
 import { checkCounter, periodAssigner } from "./TableManager";
 import { ContextData } from "../../../App";
+import type { TimeTable } from "../SchedulerTable";
 
-export function tableBuilder(setTimeTable, period) {
+type TableBuilderType = (
+  setTimeTable: React.Dispatch<React.SetStateAction<TimeTable[]>>,
+  period: string
+) => React.MouseEventHandler<HTMLButtonElement>;
+
+const tableBuilder: TableBuilderType = (setTimeTable, period) => {
   const { finalWorkbook, finalSchedule, msgMaker, langOption } = useContext(ContextData);
   return () => {
     try {
@@ -15,4 +22,5 @@ export function tableBuilder(setTimeTable, period) {
       msgMaker("warning", langOption("خطأ اثناء تكوين الجدول", "Error while creating the timetable"));
     }
   };
-}
+};
+export default tableBuilder;

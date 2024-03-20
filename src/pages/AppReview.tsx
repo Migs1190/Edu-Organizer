@@ -4,11 +4,12 @@ import React, { useContext, useState } from "react";
 import { ContextData } from "../App";
 import ReviewModal from "./review-components/ReviewModal";
 import TableCards from "./review-components/TableCards";
+import type { TimeTable } from "./scheduler-components/SchedulerTable";
 
-export default function AppReview() {
+function AppReview() {
   const { langOption } = useContext(ContextData);
   const [preview, setPreview] = useState(false);
-  const [template, setTemplate] = useState([]);
+  const [template, setTemplate] = useState<TimeTable[]>([]);
 
   const previewModal = () => setPreview(!preview);
 
@@ -28,3 +29,4 @@ export default function AppReview() {
     </section>
   );
 }
+export default AppReview;

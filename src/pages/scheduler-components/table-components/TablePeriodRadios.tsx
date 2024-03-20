@@ -1,7 +1,13 @@
-import React, { useContext } from "react";
+// biome-ignore lint/style/useImportType: <explanation>
+import React, { FC, useContext } from "react";
 import { Form } from "react-bootstrap";
 import { ContextData } from "../../../App";
-export const TablePeriodRadios = ({ setPeriod }) => {
+
+type TablePeriodRadiosType = {
+  setPeriod: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export const TablePeriodRadios: FC<TablePeriodRadiosType> = ({ setPeriod }) => {
   const { langOption } = useContext(ContextData);
   return (
     <div className="mb-4">

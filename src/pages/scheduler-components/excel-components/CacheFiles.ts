@@ -12,8 +12,7 @@ export function cacheFiles(
     const files: FileList | null = e.target.files;
     //Show a loading notification
     msgMaker("loading", langOption("جاري رفع الملفات", "Uploading files"), "up", 0);
-    const temp: File[] = [];
-    //If no files are uploaded, return -- TypeScript will throw an error if we don't check for null
+    //If no files are uploaded, return -- TypeScript
     if (files === null) return;
     //Loop through the files
     for (const file of files) {

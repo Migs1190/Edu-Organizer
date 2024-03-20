@@ -1,15 +1,20 @@
 import { faTable } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext } from "react";
+// biome-ignore lint/style/useImportType: <explanation>
+import React, { FC, useContext } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
 import ExportSheet from "../general-components/ExportSheet";
-import { ReviewModalContent } from "../review-components/ReviewModalContent";
+import ReviewModalContent from "./ReviewModalContent";
 import { ContextData } from "../../App";
+import type { TimeTable } from "../scheduler-components/SchedulerTable";
 
-/* This code snippet defines a React functional component named `ReviewModal`. The component takes
-three props: `preview`, `previewModal`, and `timeTable`. Within the component, it uses the
-`useContext` hook to access the `langOption` function from the `ContextData` context. */
-const ReviewModal = ({ preview, previewModal, timeTable }) => {
+type ReviewModalType = {
+  preview: boolean;
+  previewModal: () => void;
+  timeTable: TimeTable[];
+};
+
+const ReviewModal: FC<ReviewModalType> = ({ preview, previewModal, timeTable }) => {
   const { langOption } = useContext(ContextData);
 
   return (

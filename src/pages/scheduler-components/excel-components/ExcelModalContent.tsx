@@ -1,13 +1,19 @@
+// biome-ignore lint/style/useImportType: <explanation>
+import React, { FC } from "react";
 import { useContext } from "react";
 import { Table } from "react-bootstrap";
 import { ContextData } from "../../../App";
-
+import type { Workbook } from "../../../App";
 /*
 Contents:
  - The excel sheet content that is displayed in the modal
 */
 
-export const ExcelModalContent = ({ template }) => {
+type ExcelModalContentType = {
+  template: Workbook[];
+};
+
+export const ExcelModalContent: FC<ExcelModalContentType> = ({ template }) => {
   const { langOption } = useContext(ContextData);
   return (
     <Table id="table" striped bordered hover size="sm" responsive>

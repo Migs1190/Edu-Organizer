@@ -1,7 +1,13 @@
-import React, { Fragment, useContext } from "react";
+// biome-ignore lint/style/useImportType: <explanation>
+import React, { FC, Fragment, useContext } from "react";
 import { ContextData } from "../../App";
+import type { TimeTable } from "../scheduler-components/SchedulerTable";
 
-export const ReviewModalContent = ({ timeTable }) => {
+type ReviewModalContentType = {
+  timeTable: TimeTable[];
+};
+
+const ReviewModalContent: FC<ReviewModalContentType> = ({ timeTable }) => {
   const { langOption } = useContext(ContextData);
   return (
     <>
@@ -39,3 +45,4 @@ export const ReviewModalContent = ({ timeTable }) => {
     </>
   );
 };
+export default ReviewModalContent;

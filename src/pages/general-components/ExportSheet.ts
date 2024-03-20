@@ -1,22 +1,5 @@
 import { utils, writeFile } from "xlsx";
-
-interface TimeTable {
-  fullDate: { ar: string };
-  day: { ar: string };
-  Period1: Subject[];
-  Period2: Subject[];
-}
-
-interface Subject {
-  enrolledStudents: Student[];
-  subjectName: string;
-  subjectCode: string;
-  subjectYear: string;
-}
-
-interface Student {
-  dep: string;
-}
+import type { TimeTable } from "../scheduler-components/SchedulerTable";
 
 type CombinedSheet = {
   "عدد الطلاب": number;
