@@ -28,7 +28,7 @@ type ContextDataType = {
   setFinalWorkbook: React.Dispatch<React.SetStateAction<Workbook[]>>;
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   finalSchedule: any[];
-  setFinalSchedule: React.Dispatch<React.SetStateAction<never[]>>;
+  setFinalSchedule: React.Dispatch<React.SetStateAction<Schedule[]>>;
   lang: "AR" | "EN" | null;
   setLang: React.Dispatch<React.SetStateAction<"AR" | "EN" | null>>;
   langOption: LangOption;
@@ -56,12 +56,35 @@ export type Workbook = {
     dep: string;
   }[];
 };
+export type Schedule = {
+  day?: {
+    ar: string;
+    en: string;
+  };
+  dayNum?: {
+    ar: string;
+    en: string;
+  };
+  month?: {
+    ar: string;
+    en: string;
+  };
+  year?: {
+    ar: string;
+    en: string;
+  };
+  fullDate?: {
+    ar: string;
+    en: string;
+  };
+  flagged?: boolean;
+};
 
 const App = () => {
   !localStorage.getItem("lang") && localStorage.setItem("lang", "AR");
   const [lang, setLang] = useState<"AR" | "EN" | null>(localStorage.getItem("lang") as "AR" | "EN" | null);
   const [finalWorkbook, setFinalWorkbook] = useState<Workbook[]>([]);
-  const [finalSchedule, setFinalSchedule] = useState([]);
+  const [finalSchedule, setFinalSchedule] = useState<Schedule[]>([]);
   const [messageApi, contextHolder] = message.useMessage();
 
   const msgMaker: MessageMaker = (type, content, key = "", duration = 1) => {

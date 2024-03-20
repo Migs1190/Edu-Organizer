@@ -1,10 +1,20 @@
 import { faSquareMinus, faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext } from "react";
+// biome-ignore lint/style/useImportType: <explanation>
+import React, { FC, useContext } from "react";
 import { Button } from "react-bootstrap";
 import { ContextData } from "../../../App";
+import type { Schedule } from "../../../App";
 
-export const RangeOutput = ({ rangeIsValid, schedule, filtered, filteredSchedule, manageDay }) => {
+type RangeOutputType = {
+  rangeIsValid: boolean;
+  schedule: Schedule[];
+  filtered: boolean;
+  filteredSchedule: Schedule[];
+  manageDay: (type: "delete" | "add", i: number, filtered: boolean) => void;
+};
+
+export const RangeOutput: FC<RangeOutputType> = ({ rangeIsValid, schedule, filtered, filteredSchedule, manageDay }) => {
   const { langOption } = useContext(ContextData);
   return (
     <div id="schedule-output" className="bg-light mx-auto border rounded p-2">

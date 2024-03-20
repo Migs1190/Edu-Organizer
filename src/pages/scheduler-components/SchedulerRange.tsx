@@ -5,19 +5,23 @@ import { ContextData } from "../../App";
 import { RangeOutput } from "./range-components/RangeOutput";
 import { RangeRangePicker } from "./range-components/RangeRangePicker";
 import { GetRangeDetails, finalizeSchedule } from "./range-components/RangeManager";
+import type { Schedule } from "../../App";
+import type { Dayjs } from "dayjs";
+
+export type Range = [(Dayjs | null)?, (Dayjs | null)?];
 
 export default function SchedulerRange() {
   const { msgMaker, langOption, setFinalSchedule } = useContext(ContextData);
-  const [range, setRange] = useState([]);
+  const [range, setRange] = useState<Range>([]);
   const [rangeIsValid, setRangeValidity] = useState(false);
   const [filtered, setFilter] = useState(true);
-  const [schedule, setSchedule] = useState([]);
+  const [schedule, setSchedule] = useState<Schedule[]>([]);
   const [key, setKey] = useState(false);
-  const [filteredSchedule, setFilteredSchedule] = useState([]);
+  const [filteredSchedule, setFilteredSchedule] = useState<Schedule[]>([]);
 
-  const disabledDate = (current) => current && current < dayjs().endOf("day");
+  const disabledDate = (current: Dayjs) => current && current < dayjs().endOf("day");
 
-  const manageDay = (type, i, filtered) => {
+  const manageDay = (type: "delete" | "add", i: number, filtered: boolean) => {
     if (type === "delete") {
       if (filtered) filteredSchedule[i].flagged = true;
       else schedule[i].flagged = true;

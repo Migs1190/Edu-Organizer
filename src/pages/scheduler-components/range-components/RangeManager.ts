@@ -1,11 +1,27 @@
 import dayjs from "dayjs";
+import type { LangOption, MessageMaker, Schedule } from "../../../App";
+import type { Dayjs } from "dayjs";
 
-export function GetRangeDetails(setRangeValidity, setSchedule, setFilteredSchedule, msgMaker, langOption) {
+type GetRangeDetailsType = (
+  setRangeValidity: React.Dispatch<React.SetStateAction<boolean>>,
+  setSchedule: React.Dispatch<React.SetStateAction<Schedule[]>>,
+  setFilteredSchedule: React.Dispatch<React.SetStateAction<Schedule[]>>,
+  msgMaker: MessageMaker,
+  langOption: LangOption
+) => (st: Dayjs, ed: Dayjs) => void;
+
+const GetRangeDetails: GetRangeDetailsType = (
+  setRangeValidity,
+  setSchedule,
+  setFilteredSchedule,
+  msgMaker,
+  langOption
+) => {
   return (st, ed) => {
     setRangeValidity(false);
     try {
-      const tempUnfiltered = [];
-      const tempFiltered = [];
+      const tempUnfiltered: Schedule[] = [];
+      const tempFiltered: Schedule[] = [];
       const start = dayjs(st);
       const end = dayjs(ed);
       const holidays = [
@@ -65,18 +81,39 @@ export function GetRangeDetails(setRangeValidity, setSchedule, setFilteredSchedu
       setFilteredSchedule(tempFiltered);
       setRangeValidity(true);
     } catch (err) {
+      console.error("Look in RangeManager line 78", err);
+
       msgMaker("warning", langOption("خطأ اثناء قراءة التاريخ", "Error while processing time range"));
     }
   };
-}
-export function finalizeSchedule(filteredSchedule, schedule, setFinalSchedule, filtered, msgMaker, langOption) {
+};
+
+type finalizeScheduleType = (
+  filteredSchedule: Schedule[],
+  schedule: Schedule[],
+  setFinalSchedule: React.Dispatch<React.SetStateAction<Schedule[]>>,
+  filtered: boolean,
+  msgMaker: MessageMaker,
+  langOption: LangOption
+) => () => void;
+
+const finalizeSchedule: finalizeScheduleType = (
+  filteredSchedule,
+  schedule,
+  setFinalSchedule,
+  filtered,
+  msgMaker,
+  langOption
+) => {
   return () => {
     if (filteredSchedule.length === 0 || schedule.length === 0) return;
     try {
       setFinalSchedule(filtered ? filteredSchedule.filter((s) => !s.flagged) : schedule.filter((s) => !s.flagged));
-      msgMaker("success", langOption("تم حفظ الجدول الزمني", "Schedule saved succesfully"));
+      msgMaker("success", langOption("تم حفظ الجدول الزمني", "Schedule saved successfully"));
     } catch (err) {
       msgMaker("warning", langOption("خطأ اثناء الحفظ", "Error while saving"));
     }
   };
-}
+};
+
+export { GetRangeDetails, finalizeSchedule };
