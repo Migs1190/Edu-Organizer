@@ -6,7 +6,6 @@ Edu-Organizer is a web application designed to simplify the scheduling of lectur
 
 - **Lecture Timetables** (WIP): Automatically generate and manage lecture timetables for summer term and course equivalency students.
 - **Final Exams Scheduling**: Schedule final exams in a way that avoids conflicts and ensures optimal use of resources.
-- **Course Equivalency Management**: Handle course equivalency requests and manage equivalent courses.
 
 ## Getting Started
 
@@ -15,8 +14,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 You will need
-<a href="https://nodejs.org/" style="color: lime;">
-Node.js</a> installed on your local machine. After you have Node.js installed, you can proceed with the following steps.
+<a href="https://nodejs.org/" style="color: lime;">Node.js</a> installed on your local machine. After you have Node.js installed, you can proceed with the following steps.
 
 ### Installation
 
