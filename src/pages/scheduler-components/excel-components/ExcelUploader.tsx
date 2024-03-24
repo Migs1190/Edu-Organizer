@@ -31,7 +31,7 @@ const ExcelUploader: FC<ExcelUploaderType> = ({
   deleteAllUploaded,
   previewWorkbook,
 }) => {
-  const { langOption, finalWorkbook, msgMaker, deleteMessage } = useContext(ContextData);
+  const { langOption, finalWorkbook, msgMaker } = useContext(ContextData);
   return (
     <>
       <div id="file-uploader" className="bg-body-secondary border rounded mx-auto position-relative">
@@ -39,7 +39,7 @@ const ExcelUploader: FC<ExcelUploaderType> = ({
           type="file"
           multiple
           accept=".xls, .xlsx"
-          onChange={(e) => cacheFiles(langOption, uploaded, setUploaded, msgMaker, deleteMessage)(e)}
+          onChange={(e) => cacheFiles(langOption, uploaded, setUploaded, msgMaker)(e)}
           className="opacity-0 position-absolute w-100 h-100"
         />
         <div className="text-center">

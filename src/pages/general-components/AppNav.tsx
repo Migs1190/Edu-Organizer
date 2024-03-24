@@ -72,12 +72,13 @@ export default function AppNav() {
               show={showDropDown2}
               onMouseEnter={showDrop2}
               onMouseLeave={hideDrop2}
-              title={langOption("القاعات", "Halls")}
+              title={langOption("المحاضرات", "Lectures")}
               id="basic-nav-dropdown"
             >
-              <NavDropdown.Item className="text-center nav-link lined-nav-link" as={Link} to="scheduler">
-                {langOption("جدول جديد", "Schedule a table")}
+              <NavDropdown.Item className="text-center nav-link lined-nav-link" as={Link} to="/classrooms">
+                {langOption("نظرة عامة على القاعات", "Classroom Overview")}
               </NavDropdown.Item>
+              <br />
             </NavDropdown>
           </Nav>
           <Navbar.Brand className="m-0 p-0" onClick={changeLang} href="#" title="hey">

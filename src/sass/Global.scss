@@ -55,11 +55,6 @@ body {
   position: relative;
   transition: all 0.3s;
 
-  &:hover {
-    line-height: 7.7rem;
-  }
-
-
   &::after {
     content: "";
     position: absolute;

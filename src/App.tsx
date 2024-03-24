@@ -5,10 +5,11 @@ import AppHome from "./pages/AppHome";
 import AppScheduler from "./pages/AppScheduler";
 import AppReview from "./pages/AppReview";
 // biome-ignore lint/style/useImportType: <explanation>
-import React, { createContext, useEffect, useState } from "react";
+import React, { ElementType, createContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppFooter from "./pages/general-components/AppFooter";
 import NotFound from "./pages/NotFound";
+import AppLectures from "./pages/AppLectures";
 
 export const ContextData = createContext<ContextDataType>({
   finalWorkbook: [],
@@ -17,7 +18,7 @@ export const ContextData = createContext<ContextDataType>({
   setFinalSchedule: () => {},
   lang: "AR",
   setLang: () => {},
-  langOption: (opt1, opt2) => opt1 | opt2,
+  langOption: (opt1, opt2) => opt1,
   msgMaker: (type, content, key = "", duration = 1) => {},
   deleteMessage: (key: string) => {},
 });
@@ -38,8 +39,7 @@ type ContextDataType = {
 type MsgType = "success" | "error" | "info" | "warning" | "loading";
 export type MessageMaker = (type: MsgType, content: string, key?: string, duration?: number) => void;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export type LangOption = (opt1: any, opt2: any) => typeof opt1 | typeof opt2;
+export type LangOption = <ElementType>(opt1: ElementType, opt2: ElementType) => ElementType;
 
 export type Workbook = {
   subjectName: string;
@@ -97,7 +97,9 @@ const App = () => {
 
   const deleteMessage = (key: string) => messageApi.destroy(key);
 
-  const langOption: LangOption = (opt1, opt2) => (lang === "AR" ? opt1 : opt2);
+  function langOption<ElementType>(opt1: ElementType, opt2: ElementType) {
+    return lang === "AR" ? opt1 : opt2;
+  }
 
   const data: ContextDataType = {
     finalWorkbook,
@@ -123,6 +125,7 @@ const App = () => {
         <Routes>
           <Route index element={<AppHome />} />
           <Route path="/scheduler" element={<AppScheduler />} />
+          <Route path="/classrooms" element={<AppLectures />} />
           <Route path="/reviewer" element={<AppReview />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

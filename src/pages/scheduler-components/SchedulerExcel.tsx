@@ -19,7 +19,7 @@ export type SheetCollection = {
 };
 
 export default function SchedulerExcel() {
-  const { langOption, finalWorkbook, setFinalWorkbook, msgMaker } = useContext(ContextData);
+  const { langOption, finalWorkbook, setFinalWorkbook, msgMaker, deleteMessage } = useContext(ContextData);
   const [workbook, setWorkbook] = useState<Workbook[]>([]);
   const [multiSheet, setMSheet] = useState<SheetCollection[]>([]);
   const [uploaded, setUploaded] = useState<File[]>([]);
@@ -31,6 +31,7 @@ export default function SchedulerExcel() {
   const deleteAllUploaded = () => setUploaded([]);
 
   async function handleUpload() {
+    msgMaker("loading", langOption("جاري رفع الملفات", "Uploading files"), "up", 0);
     if (uploaded.length === 0) {
       setTemplate([]);
       setFinalWorkbook([]);
@@ -50,6 +51,7 @@ export default function SchedulerExcel() {
     );
 
     setMSheet(tempA);
+    deleteMessage("up");
     msgMaker("success", langOption("تم رفع المقررات", "Subjects uploaded successfully"));
   }
 

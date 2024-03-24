@@ -46,24 +46,24 @@ const GetRangeDetails: GetRangeDetailsType = (
 
         const commonData = {
           day: {
-            ar: loop.format("dddd"),
-            en: loop.format("dddd"),
+            ar: loop.locale("ar").format("dddd"),
+            en: loop.locale("en").format("dddd"),
           },
           dayNum: {
-            ar: loop.format("D"),
-            en: loop.format("D"),
+            ar: loop.locale("ar").format("D"),
+            en: loop.locale("en").format("D"),
           },
           month: {
-            ar: loop.format("MMMM"),
-            en: loop.format("MMMM"),
+            ar: loop.locale("ar").format("MMMM"),
+            en: loop.locale("en").format("MMMM"),
           },
           year: {
-            ar: loop.format("YYYY"),
-            en: loop.format("YYYY"),
+            ar: loop.locale("ar").format("YYYY"),
+            en: loop.locale("en").format("YYYY"),
           },
           fullDate: {
-            ar: loop.format("DD/MM/YYYY"),
-            en: loop.format("DD/MM/YYYY"),
+            ar: loop.locale("ar").format("DD/MM/YYYY"),
+            en: loop.locale("en").format("DD/MM/YYYY"),
           },
         };
 

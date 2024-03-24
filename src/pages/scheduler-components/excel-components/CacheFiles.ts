@@ -5,13 +5,11 @@ export function cacheFiles(
   uploaded: File[],
   setUploaded: React.Dispatch<React.SetStateAction<File[]>>,
   msgMaker: MessageMaker,
-  deleteMessage: (key: string) => void
 ) {
   return async (e: React.ChangeEvent<HTMLInputElement>) => {
     //Store the uploaded files in a constant
     const files: FileList | null = e.target.files;
     //Show a loading notification
-    msgMaker("loading", langOption("جاري رفع الملفات", "Uploading files"), "up", 0);
     //If no files are uploaded, return -- TypeScript
     if (files === null) return;
     //Loop through the files
@@ -27,6 +25,5 @@ export function cacheFiles(
       //No? Add it to the uploaded files
       setUploaded((uploaded) => [...uploaded, file]);
     }
-    deleteMessage("up");
   };
 }
