@@ -2,9 +2,9 @@ import "../styles/AppReview.min.css";
 import { Container, Row } from "react-bootstrap";
 import React, { useContext, useState } from "react";
 import { ContextData } from "../App";
-import ReviewModal from "./review-components/ReviewModal";
-import TableCards from "./review-components/TableCards";
-import type { TimeTable } from "./scheduler-components/SchedulerTable";
+import ReviewModal from "../components/review/ReviewModal";
+import TableCards from "../components/review/TableCards";
+import type { TimeTable } from "../components/scheduler/SchedulerTable";
 
 function AppReview() {
   const { langOption } = useContext(ContextData);

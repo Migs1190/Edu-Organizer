@@ -1,50 +1,50 @@
-import "../styles/AppScheduler.min.css";
-import React, { useContext } from "react";
-import { Tab, Tabs } from "react-bootstrap";
-import { ContextData } from "../App";
-import Excel from "./scheduler-components/SchedulerExcel";
-import Range from "./scheduler-components/SchedulerRange";
-import Table from "./scheduler-components/SchedulerTable";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleArrowLeft, faCircleArrowRight } from "@fortawesome/free-solid-svg-icons";
+import '../styles/AppScheduler.min.css';
+import React, { useContext } from 'react';
+import { Tab, Tabs } from 'react-bootstrap';
+import { ContextData } from '../App';
+import Excel from '../components/scheduler/SchedulerExcel';
+import Range from '../components/scheduler/SchedulerRange';
+import Table from '../components/scheduler/SchedulerTable';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleArrowLeft, faCircleArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 const AppScheduler = () => {
   const { langOption } = useContext(ContextData);
   const tabs = [
     {
       id: 1,
-      tabTitle: langOption("الجدول الزمني", "Time schedule"),
-      eventKey: "time-range",
+      tabTitle: langOption('الجدول الزمني', 'Time schedule'),
+      eventKey: 'time-range',
       paneContent: <Range />,
     },
     {
       id: 2,
       tabTitle: langOption(
         <FontAwesomeIcon icon={faCircleArrowLeft} className="text-primary" />,
-        <FontAwesomeIcon icon={faCircleArrowRight} className="text-primary" />
+        <FontAwesomeIcon icon={faCircleArrowRight} className="text-primary" />,
       ),
-      eventKey: "dot1",
+      eventKey: 'dot1',
       disabled: true,
     },
     {
       id: 3,
-      tabTitle: langOption("المقررات", "Subjects"),
-      eventKey: "subjects",
+      tabTitle: langOption('المقررات', 'Subjects'),
+      eventKey: 'subjects',
       paneContent: <Excel />,
     },
     {
       id: 4,
       tabTitle: langOption(
         <FontAwesomeIcon icon={faCircleArrowLeft} className="text-primary" />,
-        <FontAwesomeIcon icon={faCircleArrowRight} className="text-primary" />
+        <FontAwesomeIcon icon={faCircleArrowRight} className="text-primary" />,
       ),
-      eventKey: "dot2",
+      eventKey: 'dot2',
       disabled: true,
     },
     {
       id: 5,
-      tabTitle: langOption("تكوين جدول", "Generate timetable"),
-      eventKey: "table",
+      tabTitle: langOption('تكوين جدول', 'Generate timetable'),
+      eventKey: 'table',
       paneContent: <Table />,
     },
   ];
