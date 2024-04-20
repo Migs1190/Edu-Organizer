@@ -1,7 +1,27 @@
-// import React from "react";
+import "../styles/AppLectures.min.css";
+import React, { useRef } from "react";
+import { useEffect, useState } from "react";
+import SlidingNav from "../components/lectures/SlidingNav";
+import { lecWorkbookProcessor } from "../components/lectures/workbookProcessor";
+import type { SheetValues } from "../types";
 
-// type Props = {};
+export type WorkSheetMap = Map<string, SheetValues>;
 
-// export default function AppLectures({}: Props) {
-// 	return <div>AppLectures</div>;
-// }
+function AppLectures() {
+	const [LecWorkbook, setLecWorkbook] = useState<WorkSheetMap>(new Map()); //TODO fix this into map later
+	const lecturesSection = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		lecWorkbookProcessor(LecWorkbook);
+	}, [LecWorkbook]);
+
+	return (
+		<>
+			<SlidingNav
+				lecturesSection={lecturesSection}
+				setLecWorkbook={setLecWorkbook}
+			/>
+		</>
+	);
+}
+export default AppLectures;
