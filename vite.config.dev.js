@@ -1,11 +1,11 @@
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true,
 });
 exports.default = undefined;
 
-const _vite = require("vite");
+const _vite = require('vite');
 
-const _pluginReact = _interopRequireDefault(require("@vitejs/plugin-react"));
+const _pluginReact = _interopRequireDefault(require('@vitejs/plugin-react'));
 
 function _interopRequireDefault(obj) {
   return obj?.__esModule ? obj : { default: obj };
