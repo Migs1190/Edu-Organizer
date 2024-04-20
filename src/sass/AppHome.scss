@@ -1,26 +1,26 @@
 #home-section {
- padding-top: 10rem;
+  padding-top: 10rem;
 
- h2 {
-  font-size: 65px;
-  font-weight: bolder;
-  opacity: 0;
- }
+  h2 {
+    font-size: 65px;
+    font-weight: bolder;
+    opacity: 0;
+  }
 
- h3 {
-  opacity: 0;
- }
+  h3 {
+    opacity: 0;
+  }
 
- h2:last-child {
-  font-size: 40px;
- }
+  h2:last-child {
+    font-size: 40px;
+  }
 
- .line {
-  width: 0;
-  display: block;
-  height: 5px;
-  border-radius: 25px;
-  background-color: var(--bs-primary);
-  opacity: 0;
- }
+  .line {
+    width: 0;
+    display: block;
+    height: 5px;
+    border-radius: 25px;
+    background-color: var(--bs-primary);
+    opacity: 0;
+  }
 }

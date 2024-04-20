@@ -1,0 +1,7 @@
+#floating-file-uploader {
+  left: 100%;
+}
+#floating-file-uploader #arrow {
+  left: 0;
+  transform: translate(-100%, 0);
+}
