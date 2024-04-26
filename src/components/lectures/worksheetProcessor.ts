@@ -1,37 +1,39 @@
 import { utils } from "xlsx";
 import type { WorkSheetMap } from "../../pages/AppLectures";
 
-type lectureDayType = {
+export type lectureDayType = {
+	id: string;
 	classroom: string;
 	period: string;
-	lecture: string;
+	subject: string;
 	code: string;
 	professor: string;
 	department: string;
 	releventDep: string;
 	year: string;
+	empty?: boolean;
 };
 
-// type lecturesTableType = {
-// 	odd: {
-// 		sat: lectureDayType[];
-// 		sun: lectureDayType[];
-// 		mon: lectureDayType[];
-// 		tue: lectureDayType[];
-// 		wed: lectureDayType[];
-// 		thu: lectureDayType[];
-// 	};
-// 	even: {
-// 		sat: lectureDayType[];
-// 		sun: lectureDayType[];
-// 		mon: lectureDayType[];
-// 		tue: lectureDayType[];
-// 		wed: lectureDayType[];
-// 		thu: lectureDayType[];
-// 	};
-// };
+export type lecturesTableType = {
+	odd: {
+		sat: lectureDayType[];
+		sun: lectureDayType[];
+		mon: lectureDayType[];
+		tue: lectureDayType[];
+		wed: lectureDayType[];
+		thu: lectureDayType[];
+	};
+	even: {
+		sat: lectureDayType[];
+		sun: lectureDayType[];
+		mon: lectureDayType[];
+		tue: lectureDayType[];
+		wed: lectureDayType[];
+		thu: lectureDayType[];
+	};
+};
 
-export const lecWorkbookProcessor = (worksheet: WorkSheetMap) => {
+export const lecWorksheetProcessor = (worksheet: WorkSheetMap) => {
 	if (worksheet.size === 0) return;
 
 	const lectureTable = {
@@ -60,10 +62,9 @@ export const lecWorkbookProcessor = (worksheet: WorkSheetMap) => {
 	let currentDep = "";
 	const tempObj = {} as lectureDayType;
 	let counter = 0; //Counter to keep track of the 5 rows of classroom data
-	console.log(worksheet);
+
 	for (const [k, v] of worksheet) {
 		const currentCol = utils.decode_cell(k).c; //Number
-		const currentEncCol = utils.encode_col(utils.decode_cell(k).c); //String
 		const currentEncRow = utils.encode_row(utils.decode_cell(k).r); //String
 		const currentRow = utils.decode_cell(k).r; //Number
 		const currentVal = v.v as string;
@@ -73,20 +74,17 @@ export const lecWorkbookProcessor = (worksheet: WorkSheetMap) => {
 		if (
 			currentRow < 3 ||
 			currentCol < utils.decode_col("E") ||
-			(currentCol > utils.decode_col("AD") &&
-				currentCol < utils.decode_col("AQ")) ||
+			(currentCol > utils.decode_col("AD") && currentCol < utils.decode_col("AQ")) ||
 			currentCol > utils.decode_col("BP")
 		)
-			continue; //Skip the first 3 rows and the first 5 columns and the empty columns in the middle and end of the sheet (not needed)
+			continue; //Skip the first 3 rows and the first 5 columns and the empty columns in the middle and end of the sheet (either empty or not needed)
 
 		//Is the current column an odd number? (classroom data is in odd columns)
 		if (currentCol % 2 !== 0) {
 			//Is the pointer on a cell in the same row as a day cell?
-			if (worksheet.get(`C${currentEncRow}`)?.v) {
-				//yes? then assign the current classroom
-				currentClassroom = worksheet.get(
-					`${getShiftedValue(currentCol, "col", -1)}3`,
-				)?.v as string;
+			if (worksheet.get(`C${currentEncRow}`)?.v !== "empty") {
+				//Yes? then assign the current classroom
+				currentClassroom = worksheet.get(`${getShiftedValue(currentCol, "col", -1)}3`)?.v as string;
 				//and assign the current day
 				currentDay = worksheet.get(`C${currentEncRow}`)?.v as string;
 				//Convert the day name to a short form
@@ -120,15 +118,13 @@ export const lecWorkbookProcessor = (worksheet: WorkSheetMap) => {
 			}
 
 			//Is the pointer on a cell in the same row as a period cell?
-			if (worksheet.get(`D${currentEncRow}`)?.v) counter = 0; //yes? reset the counter
+			if (worksheet.get(`D${currentEncRow}`)?.v !== "empty") counter = 0; //yes? reset the counter
 
 			switch (counter) {
 				case 0: //The first row of classroom data
 					//get the period and department from the same row
 					currentPeriod = worksheet.get(`D${currentEncRow}`)?.v as string;
-					currentDep = worksheet.get(
-						`${getShiftedValue(currentCol, "col", -1)}${currentEncRow}`,
-					)?.v as string;
+					currentDep = worksheet.get(`${getShiftedValue(currentCol, "col", -1)}${currentEncRow}`)?.v as string;
 					//Assign the period and department to the current lecture object
 					tempObj.period = currentPeriod;
 					tempObj.department = currentDep;
@@ -143,11 +139,12 @@ export const lecWorkbookProcessor = (worksheet: WorkSheetMap) => {
 					tempObj.code = currentVal;
 					break;
 				case 3: //The fourth row of classroom data
-					tempObj.lecture = currentVal;
+					tempObj.subject = currentVal;
 					break;
 				case 4: //The fifth and last row of classroom data
 					//Assign the professor to the current lecture object
 					tempObj.professor = currentVal;
+					tempObj.id = crypto.randomUUID();
 					//Wrap up the current lecture object and push it to the lecture table
 					lectureTable[currentWeek][currentDay].push({ ...tempObj });
 					break;
@@ -159,7 +156,5 @@ export const lecWorkbookProcessor = (worksheet: WorkSheetMap) => {
 };
 
 const getShiftedValue = (value: number, type: "row" | "col", shift: number) => {
-	return type === "row"
-		? utils.encode_row(value + shift)
-		: utils.encode_col(value + shift);
+	return type === "row" ? utils.encode_row(value + shift) : utils.encode_col(value + shift);
 };

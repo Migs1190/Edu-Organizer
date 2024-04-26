@@ -81,7 +81,7 @@ export default function AppNav() {
 							<div className="nav-link-dropdown text-md-center">
 								<Nav.Link as={Link} to="/classrooms">
 									<span className="lined-nav-link pb-1 text-nowrap ">
-										{langOption("نظرة عامة على القاعات", "Classroom Overview")}
+										{langOption("متابعة جداول المحاضرات", "Classroom Overview")}
 									</span>
 								</Nav.Link>
 							</div>

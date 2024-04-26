@@ -4,7 +4,7 @@ Edu-Organizer is a web application designed to simplify the scheduling of lectur
 
 ## Features
 
-- **Lecture Timetables** (WIP): Automatically generate and manage lecture timetables for summer term and course equivalency students.
+- **Lecture Timetables**: Automatically generate and manage lecture timetables for summer term and course equivalency students.
 - **Final Exams Scheduling**: Schedule final exams in a way that avoids conflicts and ensures optimal use of resources.
 
 ## Getting Started

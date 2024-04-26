@@ -20,14 +20,11 @@ export const readSingleFile = async (file: File) => {
 	for (let col = startCol; col <= endCol; col++) {
 		for (let row = startRow; row <= endRow; row++) {
 			const currentAddress = utils.encode_cell({ c: col, r: row });
-			currentValue = Object.keys(ws).includes(currentAddress)
-				? ws[currentAddress]
-				: { t: "", r: "", h: "", w: "", v: undefined };
+			currentValue = Object.keys(ws).includes(currentAddress) ? ws[currentAddress] : { t: "", r: "", h: "", w: "", v: "empty" };
 
 			wsColRow.set(currentAddress, currentValue);
 		}
 	}
-
 	return wsColRow;
 };
 

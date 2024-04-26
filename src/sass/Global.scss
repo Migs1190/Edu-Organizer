@@ -17,6 +17,7 @@ body {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 
   * {
     font-weight: 600;
@@ -24,6 +25,10 @@ body {
 }
 
 // General Classes
+.kofi {
+  font-family: 'Noto Kufi Arabic', sans-serif;
+}
+
 .px-container {
   padding: 0 50px;
   max-width: 600px;
