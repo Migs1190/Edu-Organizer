@@ -1,8 +1,9 @@
 // biome-ignore lint/style/useImportType: <explanation>
 import React, { useContext } from "react";
-import { checkCounter, periodAssigner } from "./TableManager";
+import { periodAssigner } from "./TableManager";
 import { ContextData } from "../../../App";
 import type { TimeTable } from "../../../types";
+import { checkCounter } from "./TableCounter";
 
 type TableBuilderType = (
   setTimeTable: React.Dispatch<React.SetStateAction<TimeTable[]>>,

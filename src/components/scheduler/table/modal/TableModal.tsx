@@ -1,13 +1,12 @@
 import { faTable } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // biome-ignore lint/style/useImportType: <explanation>
-import React, { FC, useContext } from "react";
+import React, { FC, type ReactNode, useContext } from "react";
 import { Button, Form, Modal, Table } from "react-bootstrap";
 import ExportSheet from "../../../general/sheetExporter";
 import TableModalContent from "./TableModalContent";
 import { ContextData } from "../../../../App";
-import { getAllOptions } from "../TableManager";
-import type { TimeTable } from "../../../../types";
+import type { TimeTable, Workbook } from "../../../../types";
 
 type TableModalType = {
 	preview: boolean;
@@ -98,6 +97,32 @@ const TableModal: FC<TableModalType> = ({
 				</Table>
 			</Modal.Body>
 		</Modal>
+	);
+};
+
+type GetAllOptionsType = (finalWorkbook: Workbook[], type: string) => ReactNode;
+
+export const getAllOptions: GetAllOptionsType = (finalWorkbook, type) => {
+	const options = [] as string[];
+
+	finalWorkbook.map((subject: Workbook) => {
+		subject.enrolledStudents.map((student) => {
+			if (type === "year" && !options.includes(student.year))
+				options.push(student.year);
+			else if (type === "dep" && !options.includes(student.dep))
+				options.push(student.dep);
+		});
+	});
+
+	return (
+		<>
+			{options.map((option, oi) => (
+				// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+				<option key={oi} value={option}>
+					{type === "year" ? `المستوى ${option}` : option}
+				</option>
+			))}
+		</>
 	);
 };
 export default TableModal;

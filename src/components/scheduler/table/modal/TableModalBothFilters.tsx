@@ -2,8 +2,7 @@
 import React, { FC, useContext } from "react";
 import { Fragment } from "react";
 import { ContextData } from "../../../../App";
-import { rowCounter, searchPeriod } from "../TableManager";
-import type { TableModalContentType } from "./TableModalContent";
+import { rowCounter, searchPeriod, type TableModalContentType } from "./TableModalContent";
 
 const TableModalBothFilters: FC<TableModalContentType> = ({
 	timeTable,

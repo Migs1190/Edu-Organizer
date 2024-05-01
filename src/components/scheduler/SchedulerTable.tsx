@@ -18,6 +18,13 @@ export default function SchedulerTable() {
 	const [section, setSection] = useState("all");
 	const [period, setPeriod] = useState("0");
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		if (finalWorkbook.length !== 0)
+			eliminateConflicts(finalWorkbook, setFinalWorkbook);
+	}, [finalWorkbook, finalSchedule]);
+
+
 	const previewWorkbook = () => {
 		setLimiter("all");
 		setSection("all");
@@ -28,12 +35,6 @@ export default function SchedulerTable() {
 		setSection((e.target as HTMLSelectElement).value);
 	const filterByYear = (e: React.MouseEvent) =>
 		setLimiter((e.target as HTMLSelectElement).value);
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		if (finalWorkbook.length !== 0)
-			eliminateConflicts(finalWorkbook, setFinalWorkbook);
-	}, [finalWorkbook, finalSchedule]);
 
 	return (
 		<div className="px-container">

@@ -1,9 +1,8 @@
 // biome-ignore lint/style/useImportType: <explanation>
 import React, { FC, useContext } from "react";
 import { Fragment } from "react";
-import { rowCounter, searchPeriod } from "../TableManager";
 import { ContextData } from "../../../../App";
-import type { TableModalContentType } from "./TableModalContent";
+import { rowCounter, searchPeriod, type TableModalContentType } from "./TableModalContent";
 
 const TableModalDepFilter: FC<TableModalContentType> = ({
 	timeTable,

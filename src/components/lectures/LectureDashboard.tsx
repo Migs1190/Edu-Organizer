@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import type { lectureDayType, lecturesTableType } from "./worksheetProcessor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
-import { Container, ListGroup } from "react-bootstrap";
-import { ContextData } from "../../App";
+import { Container } from "react-bootstrap";
+import ClassCard from "./dashboard/ClassCard";
 type Props = { LecWorksheet: lecturesTableType; day: string; week: string };
 
 const LectureDashboard = React.memo(({ LecWorksheet, day, week }: Props) => {
-	const { langOption } = useContext(ContextData);
 
 	return (
 		<Container fluid id="class-card-wrapper">
@@ -24,38 +23,7 @@ const LectureDashboard = React.memo(({ LecWorksheet, day, week }: Props) => {
 						<div className="card-period text-secondary">{lec.period}</div>
 						<hr />
 					</div>
-					<div className="class-card-details">
-						<ListGroup className="justify-content-end text-center" horizontal dir="ltr">
-							<ListGroup.Item className="kofi" variant="primary">
-								{lec.subject !== "empty" && lec.subject}
-							</ListGroup.Item>
-							<ListGroup.Item>{langOption("اسم المادة", "Subject Name")}</ListGroup.Item>
-						</ListGroup>
-						<ListGroup className="justify-content-end text-center" horizontal dir="ltr">
-							<ListGroup.Item className="kofi" variant="primary">
-								{lec.code !== "empty" && lec.code}
-							</ListGroup.Item>
-							<ListGroup.Item>{langOption("كود المادة", "Subject Code")}</ListGroup.Item>
-						</ListGroup>
-						<ListGroup className="justify-content-end text-center" horizontal dir="ltr">
-							<ListGroup.Item className="kofi" variant="primary">
-								{lec.year !== "empty" && lec.year}
-							</ListGroup.Item>
-							<ListGroup.Item>{langOption("العام الدراسي", "Year")}</ListGroup.Item>
-						</ListGroup>
-						<ListGroup className="justify-content-end text-center" horizontal dir="ltr">
-							<ListGroup.Item className="kofi" variant="primary">
-								{lec.department !== "empty" && lec.department}
-							</ListGroup.Item>
-							<ListGroup.Item>{langOption("الشعب", "Department(s)")}</ListGroup.Item>
-						</ListGroup>
-						<ListGroup className="justify-content-end text-center" horizontal dir="ltr">
-							<ListGroup.Item className="kofi" variant="primary">
-								{lec.professor !== "empty" && lec.professor}
-							</ListGroup.Item>
-							<ListGroup.Item>{langOption("المحاضر", "Professor(s)")}</ListGroup.Item>
-						</ListGroup>
-					</div>
+					<ClassCard subject={lec.subject} code={lec.code} year={lec.year} department={lec.department} professor={lec.professor} />
 				</div>
 			))}
 		</Container>
