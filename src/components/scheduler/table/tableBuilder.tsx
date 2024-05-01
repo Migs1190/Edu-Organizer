@@ -16,7 +16,7 @@ const tableBuilder: TableBuilderType = (setTimeTable, period) => {
     try {
       if (!checkCounter(finalWorkbook, finalSchedule, msgMaker, langOption)) return;
 
-      periodAssigner(finalWorkbook, finalSchedule, setTimeTable, period);
+      setTimeTable(periodAssigner(finalWorkbook, finalSchedule, period));
 
       msgMaker("success", langOption("تم تكوين الجدول بنجاح", "Timetable created successfully"));
     } catch (err) {

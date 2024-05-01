@@ -6,7 +6,6 @@ export type Workbook = {
 	subjectYear: string;
 	subjectTerm: string;
 	conflictedSubjects: string[];
-	studentsCount: number;
 	enrolledStudents: {
 		name: string;
 		id: string;
@@ -52,17 +51,9 @@ export type ContextDataType = {
 };
 
 type MsgType = "success" | "error" | "info" | "warning" | "loading";
-export type MessageMaker = (
-	type: MsgType,
-	content: string,
-	key?: string,
-	duration?: number,
-) => void;
+export type MessageMaker = (type: MsgType, content: string, key?: string, duration?: number) => void;
 
-export type LangOption = <ElementType>(
-	opt1: ElementType,
-	opt2: ElementType,
-) => ElementType;
+export type LangOption = <ElementType>(opt1: ElementType, opt2: ElementType) => ElementType;
 
 export type Sheet = {
 	[key: string]: SheetValues;
@@ -80,7 +71,7 @@ export type SheetCollection = {
 	studentsSheet2: Sheet;
 };
 
-export type Range = [(Dayjs | null)?, (Dayjs | null)?];
+export type Range = [Dayjs | null, Dayjs | null] | null;
 
 export type TimeTable = Schedule & {
 	Period1: Workbook[];

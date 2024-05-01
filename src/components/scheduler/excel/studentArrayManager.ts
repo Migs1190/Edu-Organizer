@@ -1,12 +1,6 @@
 import { utils } from "xlsx";
 import { getCell, getSlices } from "./GetSheetData";
-import type {
-	MessageMaker,
-	LangOption,
-	Workbook,
-	SheetCollection,
-	Sheet,
-} from "../../../types";
+import type { MessageMaker, LangOption, Workbook, SheetCollection, Sheet } from "../../../types";
 
 type SheetObject = {
 	w: string;
@@ -26,61 +20,32 @@ type Students = {
 	dep: string;
 }[];
 
-function processRow(
-	row: number,
-	currentSheet: Sheet,
-	lastCol: string,
-	detailsSheet: Sheet,
-	subjectStudentsCount: number,
-	enrolledStudents: Students,
-) {
+function processRow(row: number, currentSheet: Sheet, lastCol: string, detailsSheet: Sheet, enrolledStudents: Students) {
 	//Get the department and year of the sheet
 	const tempDep: string[] = (
-		detailsSheet[
-			`${getCell(detailsSheet, "الشعبة", "include").col}${
-				getCell(detailsSheet, "الشعبة", "include").row
-			}`
-		] as SheetObject
+		detailsSheet[`${getCell(detailsSheet, "الشعبة", "include").col}${getCell(detailsSheet, "الشعبة", "include").row}`] as SheetObject
 	).w.split("/");
 
 	let tempYear: string[];
 	//Try getting the year from the "المستوى" cell and use the "include" key because "المستوى" is in a sentence
 	try {
-		tempYear = (
-			detailsSheet[
-				`${getCell(detailsSheet, "المستوى", "include").col}${
-					getCell(detailsSheet, "المستوى", "include").row
-				}`
-			] as SheetObject
-		).w.split(" ");
+		tempYear = (detailsSheet[`${getCell(detailsSheet, "المستوى", "include").col}${getCell(detailsSheet, "المستوى", "include").row}`] as SheetObject).w.split(
+			" ",
+		);
 		//If it fails, get the year from the "معادلة" cell and use the "include" key because "معادلة" is in a sentence
 	} catch (Err) {
 		console.error("Look in StudentArrayManager line 49", Err);
-		tempYear = (
-			detailsSheet[
-				`${getCell(detailsSheet, "معادلة", "include").col}${
-					getCell(detailsSheet, "معادلة", "include").row
-				}`
-			] as SheetObject
-		).w.split(" ");
+		tempYear = (detailsSheet[`${getCell(detailsSheet, "معادلة", "include").col}${getCell(detailsSheet, "معادلة", "include").row}`] as SheetObject).w.split(" ");
 	}
-	//Update subjectStudentsCount
-	const newSubjectStudentsCount = subjectStudentsCount + 1;
 	//Push the student's name, id, year and department to the enrolledStudents array
 	enrolledStudents.push({
 		name: (currentSheet[`${lastCol}${row}`] as SheetObject).w,
-		id: (
-			currentSheet[
-				`${getCell(currentSheet, "رقم الجلوس").col}${row}`
-			] as SheetObject
-		).w,
+		id: (currentSheet[`${getCell(currentSheet, "رقم الجلوس").col}${row}`] as SheetObject).w,
 		year: tempYear[1],
-		dep: tempDep[tempDep.length - 1].includes("القسم")
-			? tempDep[tempDep.length - 1].split(":")[1]
-			: tempDep[tempDep.length - 1],
+		dep: tempDep[tempDep.length - 1].includes("القسم") ? tempDep[tempDep.length - 1].split(":")[1] : tempDep[tempDep.length - 1],
 	});
-	//Return the updated subjectStudentsCount and enrolledStudents
-	return { subjectStudentsCount: newSubjectStudentsCount, enrolledStudents };
+	//Return the updated enrolledStudents
+	return { enrolledStudents };
 }
 
 function processFirstRow(value: SheetObject, tempOb: Workbook) {
@@ -94,24 +59,17 @@ function processFirstRow(value: SheetObject, tempOb: Workbook) {
 	return tempOb;
 }
 
-function studentArrayManager(
-	setWorkbook: React.Dispatch<React.SetStateAction<Workbook[]>>,
-	langOption: LangOption,
-	msgMaker: MessageMaker,
-) {
+function studentArrayManager(setWorkbook: React.Dispatch<React.SetStateAction<Workbook[]>>, langOption: LangOption, msgMaker: MessageMaker) {
 	return (sheet: SheetCollection, sType = "") => {
 		//Initialize the different sheets
 		const detailsSheet: Sheet = sheet.infoSheet;
 		//If the the first sheet is not closed that means the second sheet is closed and the overflow key is sent
-		const currentSheet =
-			sType === "overflow" ? sheet.studentsSheet2 : sheet.studentsSheet1;
+		const currentSheet = sType === "overflow" ? sheet.studentsSheet2 : sheet.studentsSheet1;
 		//Execution
 		try {
 			//If the currentSheet is undefined, return a warning message -- Typescript
-			if (currentSheet === undefined)
-				return msgMaker("warning", langOption("الملف فارغ", "Empty file"));
+			if (currentSheet === undefined) return msgMaker("warning", langOption("الملف فارغ", "Empty file"));
 			//Variables
-			let subjectStudentsCount = 0;
 			let enrolledStudents: Students = [];
 			let tempOb = {} as Workbook;
 			//Constants
@@ -144,29 +102,19 @@ function studentArrayManager(
 						//Is it the last row?
 						case lastRow:
 							//Yes? then wrap up tempOb and push it to tempAr
-							//Also, reset tempOb, enrolledStudents and subjectStudentsCount
-							tempOb.studentsCount = subjectStudentsCount;
+							//Also, reset tempOb, enrolledStudents
 							tempOb = { ...tempOb, enrolledStudents };
 							tempAr.push(tempOb);
 							tempOb = {} as Workbook;
 							enrolledStudents = [];
-							subjectStudentsCount = 0;
 							break;
 						//Is it none of the above? ie. a normal row
 						default: {
 							//Yes? then process the row
 							//But first continue if the cell value is undefined
 							if (value === undefined) continue;
-							const result = processRow(
-								row,
-								currentSheet,
-								lastCol,
-								detailsSheet,
-								subjectStudentsCount,
-								enrolledStudents,
-							);
-							//Update the subjectStudentsCount and enrolledStudents
-							subjectStudentsCount = result.subjectStudentsCount;
+							const result = processRow(row, currentSheet, lastCol, detailsSheet, enrolledStudents);
+							//Update the enrolledStudents
 							enrolledStudents = result.enrolledStudents;
 							break;
 						}
@@ -177,19 +125,11 @@ function studentArrayManager(
 			setWorkbook((workbook) => [...workbook, ...tempAr]);
 			//Is the last row 198? that's too high meaning it's an overflow
 			//So call the function again with the overflow key
-			if (lastRow === 200)
-				studentArrayManager(
-					setWorkbook,
-					langOption,
-					msgMaker,
-				)(sheet, "overflow");
+			if (lastRow === 200) studentArrayManager(setWorkbook, langOption, msgMaker)(sheet, "overflow");
 		} catch (err) {
 			//If an error occurred, log it and return a warning message
 			console.error("Look in StudentArrayManager line 161", err);
-			msgMaker(
-				"warning",
-				langOption("حدث خطأ اثناء قراءة الملف", "Error while reading the file"),
-			);
+			msgMaker("warning", langOption("حدث خطأ اثناء قراءة الملف", "Error while reading the file"));
 		}
 	};
 }

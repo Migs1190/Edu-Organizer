@@ -8,7 +8,7 @@ import type { Range, Schedule } from "../../types";
 
 export default function SchedulerRange() {
 	const { msgMaker, langOption, setFinalSchedule } = useContext(ContextData);
-	const [range, setRange] = useState<Range>([]);
+	const [range, setRange] = useState<Range>([null, null]);
 	const [rangeIsValid, setRangeValidity] = useState(false);
 	const [filtered, setFilter] = useState(true);
 	const [schedule, setSchedule] = useState<Schedule[]>([]);
