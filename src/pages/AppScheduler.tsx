@@ -1,4 +1,4 @@
-import '../styles/AppScheduler.min.css';
+import '../sass/AppScheduler.scss';
 import React, { useContext } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { ContextData } from '../App';

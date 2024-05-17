@@ -1,4 +1,4 @@
-import "../styles/AppReview.min.css";
+import "../sass/AppReview.scss";
 import { Container, Row } from "react-bootstrap";
 import React, { useContext, useState } from "react";
 import { ContextData } from "../App";

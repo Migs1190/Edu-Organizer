@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ContextData } from "../../App";
-import "../../styles/MainNav.min.css";
+import "../../sass/MainNav.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 

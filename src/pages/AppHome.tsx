@@ -1,4 +1,4 @@
-import "../styles/AppHome.min.css";
+import "../sass/AppHome.scss";
 import React, { useContext, useEffect, useRef } from "react";
 import { Container } from "react-bootstrap";
 import { ContextData } from "../App";

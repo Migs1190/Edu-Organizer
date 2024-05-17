@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Container, Navbar } from 'react-bootstrap';
-import '../../styles/MainFooter.min.css';
+import '../../sass/MainFooter.scss';
 
 export default function AppFooter() {
   return (

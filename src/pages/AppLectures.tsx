@@ -1,4 +1,4 @@
-import "../styles/AppLectures.min.css";
+import "../sass/AppLectures.scss";
 // biome-ignore lint/style/useImportType: <explanation>
 import React, { useContext, useRef } from "react";
 import { useEffect, useState } from "react";

@@ -1,4 +1,4 @@
-import "./styles/Global.min.css";
+import "./sass/Global.scss";
 import { message } from "antd";
 import AppNav from "./components/general/AppNav";
 import AppHome from "./pages/AppHome";

@@ -74,6 +74,7 @@ public/الكشف المجمع صيفى 2023/
 public/manon.png
 public/palico.png
 src/config/
+src/styles/
 deprecated/
 src/pages/scheduler-components/range-components/RangeManager copy.tsx
 server/
