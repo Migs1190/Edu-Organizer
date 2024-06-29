@@ -32,6 +32,7 @@ const AppLectures = () => {
 
  useEffect(() => {
   if (lecMap.size === 0) return;
+
   const worksheet = lecWorksheetProcessor(lecMap) as lecturesTableType;
   setLecWorksheet(worksheet);
  }, [lecMap]);

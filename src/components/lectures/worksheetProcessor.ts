@@ -18,7 +18,7 @@ export type lectureDayType = {
 };
 
 export type lecturesTableType = {
- [odd in Week]: {
+ [key: string]: {
   sat: lectureDayType[];
   sun: lectureDayType[];
   mon: lectureDayType[];
@@ -27,7 +27,7 @@ export type lecturesTableType = {
   thu: lectureDayType[];
  };
 } & {
- [even in Day]: {
+ [key: string]: {
   sat: lectureDayType[];
   sun: lectureDayType[];
   mon: lectureDayType[];
@@ -40,7 +40,24 @@ export type lecturesTableType = {
 export const lecWorksheetProcessor = (worksheet: WorkSheetMap) => {
  if (worksheet.size === 0) return;
 
- const lectureTable = {} as lecturesTableType;
+ const lectureTable = {
+  odd: {
+   sat: [] as lectureDayType[],
+   sun: [] as lectureDayType[],
+   mon: [] as lectureDayType[],
+   tue: [] as lectureDayType[],
+   wed: [] as lectureDayType[],
+   thu: [] as lectureDayType[],
+  },
+  even: {
+   sat: [] as lectureDayType[],
+   sun: [] as lectureDayType[],
+   mon: [] as lectureDayType[],
+   tue: [] as lectureDayType[],
+   wed: [] as lectureDayType[],
+   thu: [] as lectureDayType[],
+  },
+ };
 
  let currentWeek: Week = "even";
  let currentDay: Day = "sat";
@@ -133,6 +150,7 @@ export const lecWorksheetProcessor = (worksheet: WorkSheetMap) => {
      tempObj.professor = currentVal;
      tempObj.id = crypto.randomUUID();
      //Wrap up the current lecture object and push it to the lecture table
+
      lectureTable[currentWeek][currentDay].push({ ...tempObj });
      break;
    }
